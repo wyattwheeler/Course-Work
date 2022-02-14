@@ -98,6 +98,10 @@ namespace ClassISSR
                 string sSR09Cmd = "./SR09";
                 string sSR10Cmd = "./SR10";
                 string sSR11Cmd = "./SR11";
+                string sSR12Cmd = "./SR12";
+                string sSR13Cmd = "./SR13";
+                string sSR14Cmd = "./SR14";
+                string sSR15Cmd = "./SR15";
 
                 if (String.Equals(sInput, sHelpCmd))
                 {
@@ -108,9 +112,13 @@ namespace ClassISSR
                     Console.WriteLine("./SR09 - Execute SR09 code.");
                     Console.WriteLine("./SR10 - Execute SR10 code.");
                     Console.WriteLine("./SR11 - Execute SR11 code.");
+                    Console.WriteLine("./SR12 - Execute SR12 code.");
+                    Console.WriteLine("./SR13 - Execute SR13 code.");
+                    Console.WriteLine("./SR14 - Execute SR14 code.");
+                    Console.WriteLine("./SR15 - Execute SR15 code.");
                 }
 
-                if(String.Equals(sInput, sSR06Cmd))
+                if (String.Equals(sInput, sSR06Cmd))
                 {
                     string sBirthYear;
                     string sOtherBirthYear;
@@ -132,8 +140,8 @@ namespace ClassISSR
                         Console.WriteLine("Person 1 is younger than Person 2.");
                 }
 
-                if(String.Equals(sInput, sSR07Cmd))
-                { 
+                if (String.Equals(sInput, sSR07Cmd))
+                {
                     string sBirthYear;
                     string sCitizen;
 
@@ -158,7 +166,7 @@ namespace ClassISSR
                             Console.WriteLine("Person 1 is not elgible to vote in NZ, concluding test.");
                         }
                     }
-                    else if(String.Equals(sCitizen, "N") || String.Equals(sCitizen, "n"))
+                    else if (String.Equals(sCitizen, "N") || String.Equals(sCitizen, "n"))
                     {
                         Console.WriteLine("Person 1 is not elgible to vote in NZ, concluding test.");
                     }
@@ -166,7 +174,7 @@ namespace ClassISSR
                         Console.WriteLine("Not a valid answer, please rerun the test and check parameters.");
                 }
 
-                if(String.Equals(sInput, sSR08Cmd))
+                if (String.Equals(sInput, sSR08Cmd))
                 {
                     Console.WriteLine("Negative Number Check Test");
                     Console.WriteLine("Please insert a number:\n");
@@ -187,7 +195,7 @@ namespace ClassISSR
                         Console.WriteLine("Data entered were not numbers, please rerun test.");
                 }
 
-                if(String.Equals(sInput, sSR09Cmd))
+                if (String.Equals(sInput, sSR09Cmd))
                 {
                     Console.WriteLine("Number Calculation Test");
                     Console.WriteLine("David is 19 years old and Luke is 17 years old, what's the difference in years?");
@@ -202,7 +210,7 @@ namespace ClassISSR
                     Console.WriteLine("The difference in years between David & Luke is {0}", iDifference);
                 }
 
-                if(String.Equals(sInput, sSR10Cmd))
+                if (String.Equals(sInput, sSR10Cmd))
                 {
                     Console.WriteLine("Number Odd or Even Test");
                     Console.WriteLine("Please insert a number:\n");
@@ -269,12 +277,158 @@ namespace ClassISSR
                     else
                         Console.WriteLine("Data entered were not numbers, please rerun test.");
                 }
+
+                if (String.Equals(sInput, sSR12Cmd))
+                {
+                    string sOperator, sFirstNumber, sSecondNumber;
+
+                    Console.WriteLine("Simple Calculator");
+                    Console.WriteLine("Please enter a operator:\n");
+
+                    sOperator = Console.ReadLine();
+                    char cOperator = char.Parse(sOperator);
+
+                    Console.WriteLine("Please enter first number:\n");
+
+                    sFirstNumber = Console.ReadLine();
+
+                    Console.WriteLine("Please enter second number:\n");
+                    sSecondNumber = Console.ReadLine();
+
+                    int iNumberResult;
+                    int iFirstNumber = 0, iSecondNumber = 0, iFinalNumber = 0;
+                    if (int.TryParse(sFirstNumber, out iNumberResult)) // check if number not string
+                        iFirstNumber = Int32.Parse(sFirstNumber);
+
+                    if (int.TryParse(sFirstNumber, out iNumberResult))
+                        iSecondNumber = Int32.Parse(sSecondNumber);
+
+                    switch (cOperator)
+                    {
+                        case '+':
+                            iFinalNumber = iFirstNumber + iSecondNumber;
+                            Console.WriteLine("{0} + {1} = {2}", iFirstNumber, iSecondNumber, iFinalNumber);
+                            break;
+                        case '-':
+                            iFinalNumber = iFirstNumber - iSecondNumber;
+                            Console.WriteLine("{0} - {1} = {2}", iFirstNumber, iSecondNumber, iFinalNumber);
+                            break;
+                        case '*':
+                            iFinalNumber = iFirstNumber * iSecondNumber;
+                            Console.WriteLine("{0} * {1} = {2}", iFirstNumber, iSecondNumber, iFinalNumber);
+                            break;
+                        case '/':
+                            iFinalNumber = iFirstNumber / iSecondNumber;
+                            Console.WriteLine("{0} / {1} = {2}", iFirstNumber, iSecondNumber, iFinalNumber);
+                            break;
+                        default:
+                            Console.WriteLine("Operator not correct (+, -, *, /), please rerun program.");
+                            break;
+                    }
+                }
+
+                if (String.Equals(sInput, sSR13Cmd))
+                {
+                    string sFirstNumber, sSecondNumber;
+
+                    Console.WriteLine("Add Number Test");
+                    Console.WriteLine("Please enter first number:\n");
+
+                    sFirstNumber = Console.ReadLine();
+                    int iFirstNumber = 0, iSecondNumber = 0, iNumberResult = 0, iFinalNumber = 0;
+
+                    if (int.TryParse(sFirstNumber, out iNumberResult)) // check if number not string
+                        iFirstNumber = Int32.Parse(sFirstNumber);
+
+                    Console.WriteLine("Please enter second number:\n");
+                    sSecondNumber = Console.ReadLine();
+
+                    if (int.TryParse(sSecondNumber, out iNumberResult)) // check if number not string
+                        iSecondNumber = Int32.Parse(sSecondNumber);
+
+                    iFinalNumber = iFirstNumber + iSecondNumber;
+                    Console.WriteLine("The sum of {0} and {1} is {2}", iFirstNumber, iSecondNumber, iFinalNumber);
+                }
+
+                if (String.Equals(sInput, sSR14Cmd))
+                {
+                    Console.WriteLine("Reverse Number Test");
+                    Console.WriteLine("Please enter a number:\n");
+
+                    string sReverseNumber = Console.ReadLine();
+
+                    int iNumberResult = 0;
+                    int iReverseNumber = 0;
+                    if (int.TryParse(sReverseNumber, out iNumberResult)) // check if number not string
+                        iReverseNumber = Int32.Parse(sReverseNumber);
+
+                    char[] charArray = sReverseNumber.ToCharArray();
+                    Array.Reverse(charArray);
+                    string sFinal = new string(charArray);
+
+                    Console.WriteLine("{0} reversed is {1}", sReverseNumber, sFinal);
+                }
+
+                if (String.Equals(sInput, sSR15Cmd))
+                {
+                    Console.WriteLine("Rock Paper Scissors Game");
+                    Console.WriteLine("Rock, paper or scissors?:\n");
+
+                    string sChoice = Console.ReadLine();
+                    int iChoice = 0;
+
+                    if(String.Equals(sChoice, "Rock") || String.Equals(sChoice, "rock"))
+                        iChoice = 1;
+                    else if(String.Equals(sChoice, "Paper") || String.Equals(sChoice, "paper"))
+                        iChoice = 2;
+                    else if(String.Equals(sChoice, "Scissors") || String.Equals(sChoice, "scissors"))
+                        iChoice = 3;
+
+                    Random r = new Random();
+                    int iRandomInt = r.Next(1, 3);
+
+                    switch(iRandomInt)
+                    {
+                        case 1:
+                        {
+                                Console.WriteLine("Bot chose: Rock!");
+                                if (iRandomInt == iChoice)
+                                    Console.WriteLine("Tie!");
+
+                                if (iChoice == 2)
+                                    Console.WriteLine("You win!");
+                                else if (iChoice == 3)
+                                    Console.WriteLine("You lose!");
+                                break;
+                        }
+                        case 2:
+                        {
+                                Console.WriteLine("Bot chose: Paper!");
+                                if (iRandomInt == iChoice)
+                                    Console.WriteLine("Tie!");
+
+                                if (iChoice == 3)
+                                    Console.WriteLine("You win!");
+                                else if (iChoice == 1)
+                                    Console.WriteLine("You lose!");
+                                break;
+                        }
+                        case 3:
+                        {
+                                Console.WriteLine("Bot chose: Scissors!");
+                                if (iRandomInt == iChoice)
+                                    Console.WriteLine("Tie!");
+
+                                if (iChoice == 1)
+                                    Console.WriteLine("You win!");
+                                else if (iChoice == 2)
+                                    Console.WriteLine("You lose!");
+                                break;
+                        }
+                    }
+                }
             }
             while (sFormComplete == true);
-
-            
-
-            
 
             Console.ReadKey(true);
         }
