@@ -13,7 +13,7 @@ namespace ClassISSR
             bool sFormComplete = false;
 
             Console.OutputEncoding = Encoding.GetEncoding(866);
-            Console.WriteLine("Project Alpha (v0.1) - Wyatt Wheeler");
+            Console.WriteLine("Project Alpha (v0.2) - Wyatt Wheeler");
             Console.WriteLine("SR02");
 
             Console.WriteLine("┌───┐");
