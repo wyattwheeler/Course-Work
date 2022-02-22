@@ -11,15 +11,15 @@ namespace ConsoleApp
     {
         public class Employee // BRRRR
         {
-            public int Id
+            public int Id // index id
             {
-                get;
-                set;
+                get => Id;
+                set => Id = value;
             }
             public string firstName
             {
-                get;
-                set;
+                get => firstName;
+                set => firstName = value;
             }
             public string lastName
             {
@@ -103,8 +103,8 @@ namespace ConsoleApp
 
             EList.Add(new Employee()
             {
-                firstName = sfirstName,
-                lastName = slastName
+                Employee.firstName = sfirstName,
+                Employee.lastName = slastName
             });
         }
     }
