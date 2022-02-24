@@ -15,6 +15,7 @@ namespace ConsoleApp
         [Serializable]
         public class Employee // BRRRR
         {
+            // Public employee variables, go brrrr
             public string firstName
             {
                 get;
@@ -68,7 +69,7 @@ namespace ConsoleApp
 
                 // Serializing
                 // Using the Newtonsoft.Json package, we can create / open & write serial to file with a few lines.
-                using (StreamWriter file = File.CreateText("employee.txt"))
+                using (StreamWriter file = File.CreateText("employee.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, eList);
@@ -83,10 +84,10 @@ namespace ConsoleApp
 
                 Console.WriteLine("Employee Index: {0}\n", iId);
 
-                Console.WriteLine("Please write first name for employee Index: {0}", iId);
+                Console.WriteLine("\nPlease write first name for employee Index: {0}", iId);
                 em.firstName = Console.ReadLine();
 
-                Console.WriteLine("Please write last name for employee Index: {0}", iId);
+                Console.WriteLine("\nPlease write last name for employee Index: {0}", iId);
                 em.lastName = Console.ReadLine();
 
                 Console.WriteLine("\nPlease enter employee email for employee Index: {0}:", iId);
@@ -105,7 +106,7 @@ namespace ConsoleApp
                 table.Write();
 
                 // Serializing
-                using (StreamWriter file = File.CreateText("employee.txt"))
+                using (StreamWriter file = File.CreateText("employee.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, eList);
@@ -171,7 +172,7 @@ namespace ConsoleApp
                 table.Write();
 
                 // Serialize
-                using (StreamWriter file = File.CreateText("employee.txt"))
+                using (StreamWriter file = File.CreateText("employee.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, eList);
@@ -242,7 +243,7 @@ namespace ConsoleApp
                 table.Write();
 
                 // Serialize
-                using (StreamWriter file = File.CreateText("employee.txt"))
+                using (StreamWriter file = File.CreateText("employee.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, eList);
@@ -263,7 +264,7 @@ namespace ConsoleApp
                 eList.RemoveAt(iId);
 
                 // Serialize
-                using (StreamWriter file = File.CreateText("employee.txt"))
+                using (StreamWriter file = File.CreateText("employee.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, eList);
@@ -286,7 +287,7 @@ namespace ConsoleApp
                 eList.RemoveAt(index);
 
                 // Serialize
-                using (StreamWriter file = File.CreateText("employee.txt"))
+                using (StreamWriter file = File.CreateText("employee.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, eList);
@@ -336,7 +337,7 @@ namespace ConsoleApp
 
             // Serialize
             // We read file every time the program runs, never again as it is synced with the object list
-            using (StreamReader file = new StreamReader("employee.txt"))
+            using (StreamReader file = new StreamReader("employee.json"))
             {
                 Employee.serial = file.ReadToEnd();
                 EList = JsonConvert.DeserializeObject<List<Employee>>(Employee.serial);

@@ -15,51 +15,59 @@ namespace ConsoleApp
         [Serializable]
         public class Employee // BRRRR
         {
-            public int id { get; set; }
-            public string firstName { get; set; }
-            public string lastName { get; set; }
-            public string emailId { get; set; }
-
-            public string contactNumber { get; set; }
-
-            public string address { get; set; }
-
+            public string firstName
+            {
+                get;
+                set;
+            }
+            public string lastName
+            {
+                get;
+                set;
+            }
+            public string emailId
+            {
+                get;
+                set;
+            }
+            public string contactNumber
+            {
+                get;
+                set;
+            }
+            public string address
+            {
+                get;
+                set;
+            }
             public static string serial;
 
+            // AddEmployee(string, string, List<Employee>)
+            // Adds employee information to record in list & file.
             public static void AddEmployee(string sfirstName, string slastName, List<Employee> eList)
             {
                 Employee em = new Employee();
-
                 em.firstName = sfirstName;
                 em.lastName = slastName;
 
-                // Extras
-
-                string sEmailID, sMobileNumber, sAddress;
-
                 Console.WriteLine("\nPlease enter employee email:");
-                sEmailID = Console.ReadLine();
-                em.emailId = sEmailID;
+                em.emailId = Console.ReadLine();
 
                 Console.WriteLine("\nPlease enter employee phone number:");
-                sMobileNumber = Console.ReadLine();
-
-                em.contactNumber = sMobileNumber;
+                em.contactNumber = Console.ReadLine();
 
                 Console.WriteLine("\nPlease enter employee address:");
-                sAddress = Console.ReadLine();
-
-                em.address = sAddress;
+                em.address = Console.ReadLine();
 
                 eList.Add(em);
+
                 int index = eList.IndexOf(em);
-
                 var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
-
                 table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
                 table.Write();
 
-                // serialize
+                // Serializing
+                // Using the Newtonsoft.Json package, we can create / open & write serial to file with a few lines.
                 using (StreamWriter file = File.CreateText("employee.txt"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
@@ -67,45 +75,36 @@ namespace ConsoleApp
                 }
             }
 
+            // InsertEmployee(int, List<Employee>
+            // Inserts new employee information at defined index.
             public static void InsertEmployee(int iId, List<Employee> eList)
             {
                 Employee em = new Employee();
-                string sFirstName, sLastName, sEmailID, sMobileNumber, sAddress;
 
                 Console.WriteLine("Employee Index: {0}\n", iId);
 
                 Console.WriteLine("Please write first name for employee Index: {0}", iId);
-                sFirstName = Console.ReadLine();
-
-                em.firstName = sFirstName;
+                em.firstName = Console.ReadLine();
 
                 Console.WriteLine("Please write last name for employee Index: {0}", iId);
-                sLastName = Console.ReadLine();
-
-                em.lastName = sLastName;
+                em.lastName = Console.ReadLine();
 
                 Console.WriteLine("\nPlease enter employee email for employee Index: {0}:", iId);
-                sEmailID = Console.ReadLine();
-                em.emailId = sEmailID;
+                em.emailId = Console.ReadLine();
 
                 Console.WriteLine("\nPlease enter employee phone number for employee Index: {0}:", iId);
-                sMobileNumber = Console.ReadLine();
-
-                em.contactNumber = sMobileNumber;
+                em.contactNumber = Console.ReadLine();
 
                 Console.WriteLine("\nPlease enter employee address for employee Index: {0}:", iId);
-                sAddress = Console.ReadLine();
-
-                em.address = sAddress;
+                em.address = Console.ReadLine();
 
                 eList.Insert(iId, em);
 
                 var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
-
                 table.AddRow(iId, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
                 table.Write();
 
-                // serialize
+                // Serializing
                 using (StreamWriter file = File.CreateText("employee.txt"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
@@ -113,6 +112,8 @@ namespace ConsoleApp
                 }
             }
 
+            // UpdateEmployeeId(int, List<Employee>)
+            // Update employee information at desired index
             public static void UpdateEmployeeId(int iId, List<Employee> eList)
             {
                 Employee em = eList.ElementAt(iId);
@@ -120,6 +121,7 @@ namespace ConsoleApp
                 if (em == null)
                     return;
 
+                // Use strings to ensure strings are getting parsed correctly & not early or somehow nulled
                 string sFirstName, sLastName, sEmailID, sMobileNumber, sAddress;
 
                 Console.WriteLine("Not inputting any details will not update the record.");
@@ -165,11 +167,10 @@ namespace ConsoleApp
                     em.address = sAddress;
 
                 var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
-
                 table.AddRow(iId, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
                 table.Write();
 
-                // serialize
+                // Serialize
                 using (StreamWriter file = File.CreateText("employee.txt"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
@@ -177,6 +178,8 @@ namespace ConsoleApp
                 }
             }
 
+            // UpdateEmployeeName(string, List<Employee>)
+            // Update employee information at desired first name
             public static void UpdateEmployeeName(string sName, List<Employee> eList)
             {
                 string sFirstName, sLastName, sEmailID, sMobileNumber, sAddress;
@@ -189,7 +192,6 @@ namespace ConsoleApp
 
                 Console.WriteLine("Employee found: {0} {1}", em.firstName, em.lastName);
                 Console.WriteLine("Not inputting any details will not update the record.");
-
                 Console.WriteLine("Please enter new first name for employee at index: {0}", index);
 
                 sFirstName = Console.ReadLine();
@@ -200,6 +202,7 @@ namespace ConsoleApp
                     em.firstName = sFirstName;
 
                 Console.WriteLine("Please enter new last name for employee at index: {0}", index);
+
                 sLastName = Console.ReadLine();
 
                 if (String.Equals(sLastName, ""))
@@ -208,6 +211,7 @@ namespace ConsoleApp
                     em.lastName = sLastName;
 
                 Console.WriteLine("\nPlease enter employee email for employee at index: {0}:", index);
+
                 sEmailID = Console.ReadLine();
 
                 if (String.Equals(sEmailID, ""))
@@ -216,6 +220,7 @@ namespace ConsoleApp
                     em.emailId = sEmailID;
 
                 Console.WriteLine("\nPlease enter employee phone number for employee at index: {0}:", index);
+
                 sMobileNumber = Console.ReadLine();
 
                 if (String.Equals(sMobileNumber, ""))
@@ -224,6 +229,7 @@ namespace ConsoleApp
                     em.contactNumber = sMobileNumber;
 
                 Console.WriteLine("\nPlease enter employee address for employee at index: {0}:", index);
+
                 sAddress = Console.ReadLine();
 
                 if (String.Equals(sAddress, ""))
@@ -232,11 +238,10 @@ namespace ConsoleApp
                     em.address = sAddress;
 
                 var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
-
                 table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
                 table.Write();
 
-                // serialize
+                // Serialize
                 using (StreamWriter file = File.CreateText("employee.txt"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
@@ -244,6 +249,8 @@ namespace ConsoleApp
                 }
             }
 
+            // DeleteEmployeeId(int, List<Employee>)
+            // Delete employee from list & file by desired index
             public static void DeleteEmployeeId(int iId, List<Employee> eList)
             {
                 Employee em = eList.ElementAt(iId);
@@ -255,7 +262,7 @@ namespace ConsoleApp
 
                 eList.RemoveAt(iId);
 
-                // serialize
+                // Serialize
                 using (StreamWriter file = File.CreateText("employee.txt"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
@@ -263,6 +270,8 @@ namespace ConsoleApp
                 }
             }
 
+            // DeleteEmployeeName(string, List<Employee>)
+            // Delete employee from list & file by desired name
             public static void DeleteEmployeeName(string sName, List<Employee> eList)
             {
                 Employee em = eList.Find(em => em.firstName == sName);
@@ -276,7 +285,7 @@ namespace ConsoleApp
 
                 eList.RemoveAt(index);
 
-                // serialize
+                // Serialize
                 using (StreamWriter file = File.CreateText("employee.txt"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
@@ -284,6 +293,8 @@ namespace ConsoleApp
                 }
             }
 
+            // SearchEmployeeId(int, List<Employee>)
+            // Search employee information from list & file by desired index
             public static void SearchEmployeeId(int iId, List<Employee> eList)
             {
                 Employee em = eList.ElementAt(iId);
@@ -291,14 +302,15 @@ namespace ConsoleApp
                 if (em == null)
                     return;
 
-                var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address"); // External library ConsoleTable to show data easier.
-
                 int index = eList.IndexOf(em);
 
+                var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address"); // External library ConsoleTable to show data easier.
                 table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
                 table.Write();
             }
 
+            // SearchEmployeeName(int, List<Employee>)
+            // Search employee information from list & file by desired string
             public static void SearchEmployeeName(string sName, List<Employee> eList)
             {
                 Employee em = eList.Find(em => em.firstName == sName);
@@ -309,32 +321,35 @@ namespace ConsoleApp
                 int index = eList.IndexOf(em);
 
                 var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
-
                 table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
                 table.Write();
             }
-
         }
 
         static void Main()
         {
             Console.WriteLine("==========Employee Information==========");
             Console.WriteLine("\n1. Add Information\n2. Insert Information\n3. Update Information\n4. Delete Information\n5. Search Information\n6. Display Information\n7. Display Information Menu");
-            int num = 0;
-            int iRun = 1; // lazy
-            List<Employee> EList = new List<Employee>(); // Apparently redefining or keeping this at a global scope didn't carry my data, dunno why.
+            int num = 0; // Number selector
+            int iRun = 1; // Make thing do thing
+            List<Employee> EList = new List<Employee>(); // Keeping this at a global scope didn't carry my data, dunno why.
 
             // Serialize
+            // We read file every time the program runs, never again as it is synced with the object list
             using (StreamReader file = new StreamReader("employee.txt"))
             {
                 Employee.serial = file.ReadToEnd();
                 EList = JsonConvert.DeserializeObject<List<Employee>>(Employee.serial);
             }
 
+            // We do everything here, call all our functions and everything
             do
             {
-                num = Convert.ToInt32(Console.ReadLine());
+                // Grab input, parse through as integer, prevents exception errors when something other than int is entered.
+                string iinput = Console.ReadLine();
+                bool isString = int.TryParse(iinput, out num);
 
+                // Call function based on number representive in landing page.
                 switch (num)
                 {
                     case 1:
@@ -358,7 +373,8 @@ namespace ConsoleApp
 
                             Employee em = new Employee();
 
-                            iEmployeeID = Convert.ToInt32(Console.ReadLine()); // we don't need errOrs here!
+                            isString = int.TryParse(Console.ReadLine(), out iEmployeeID);
+
                             Employee.InsertEmployee(iEmployeeID, EList);
 
                             break;
@@ -373,7 +389,7 @@ namespace ConsoleApp
                             if (String.Equals(sInput, "i") || String.Equals(sInput, "I") || String.Equals(sInput, "Index"))
                             {
                                 Console.WriteLine("Please enter Employee Index");
-                                int iId = Convert.ToInt32(Console.ReadLine());
+                                isString = int.TryParse(Console.ReadLine(), out int iId);
 
                                 Employee.UpdateEmployeeId(iId, EList);
                             }
@@ -398,7 +414,8 @@ namespace ConsoleApp
                             if (String.Equals(sInput, "i") || String.Equals(sInput, "I") || String.Equals(sInput, "Index"))
                             {
                                 Console.WriteLine("Please enter Employee Index");
-                                int iId = Convert.ToInt32(Console.ReadLine());
+
+                                isString = int.TryParse(Console.ReadLine(), out int iId);
 
                                 Employee.DeleteEmployeeId(iId, EList);
                             }
@@ -423,7 +440,7 @@ namespace ConsoleApp
                             if (String.Equals(sInput, "i") || String.Equals(sInput, "I") || String.Equals(sInput, "Index"))
                             {
                                 Console.WriteLine("Please enter Employee Index");
-                                int iId = Convert.ToInt32(Console.ReadLine());
+                                isString = int.TryParse(Console.ReadLine(), out int iId);
 
                                 Employee.SearchEmployeeId(iId, EList);
                             }
@@ -457,6 +474,7 @@ namespace ConsoleApp
                         break;
                     default:
                         // not a number, deez nutz.
+                        Console.WriteLine("Please enter a function valid number.");
                         break;
                 }
             }
