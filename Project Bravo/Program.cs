@@ -99,6 +99,12 @@ namespace ConsoleApp
                 Console.WriteLine("\nPlease enter employee address for employee Index: {0}:", iId);
                 em.address = Console.ReadLine();
 
+                if(iId > eList.Count)
+                {
+                    Console.WriteLine("Index out of bounds, please restart.");
+                    return;
+                }
+
                 eList.Insert(iId, em);
 
                 var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
@@ -212,8 +218,8 @@ namespace ConsoleApp
                         return;
                     }
 
-                    Employee emchosen = eList.ElementAt(num);
-                    eindex = eList.IndexOf(emchosen);
+                    Employee emchosen = DelList.ElementAt(num);
+                    eindex = DelList.IndexOf(emchosen);
 
                     if (emchosen == null)
                         return;
@@ -388,15 +394,15 @@ namespace ConsoleApp
                         return;
                     }
 
-                    Employee emchosen = eList.ElementAt(num);
-                    eindex = eList.IndexOf(emchosen);
+                    Employee emchosen = DelList.ElementAt(num);
+                    eindex = DelList.IndexOf(emchosen);
 
                     if (emchosen == null)
                         return;
 
                     Console.WriteLine("Employee {0} {1} found at ID: {2}, deleting...", emchosen.firstName, emchosen.lastName, eindex);
 
-                    eList.RemoveAt(eindex);
+                    eList.Remove(emchosen);
                 }
                 else
                 {
