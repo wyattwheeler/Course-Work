@@ -184,63 +184,151 @@ namespace ConsoleApp
             public static void UpdateEmployeeName(string sName, List<Employee> eList)
             {
                 string sFirstName, sLastName, sEmailID, sMobileNumber, sAddress;
-                Employee em = eList.Find(em => em.firstName == sName);
 
-                if (em == null)
-                    return;
+                // Originally figured out how to do this when deleting first, then recycled it.
+                List<Employee> DelList = eList.FindAll(em => em.firstName == sName);
 
-                int index = eList.IndexOf(em);
+                var table = new ConsoleTable("Index", "First Name", "Last Name");
 
-                Console.WriteLine("Employee found: {0} {1}", em.firstName, em.lastName);
-                Console.WriteLine("Not inputting any details will not update the record.");
-                Console.WriteLine("Please enter new first name for employee at index: {0}", index);
+                if (DelList.Count > 1)
+                {
+                    int eindex;
+                    Console.WriteLine("Multiple employees with the same first name detected, please select below.");
 
-                sFirstName = Console.ReadLine();
+                    foreach (Employee em in DelList)
+                    {
+                        eindex = DelList.IndexOf(em); // variable leaking to global, whoops
+                        table.AddRow(eindex, em.firstName, em.lastName);
+                    }
 
-                if (String.Equals(sFirstName, ""))
-                    sFirstName = em.firstName;
+                    table.Write();
+
+                    string sInput = Console.ReadLine();
+                    bool isString = int.TryParse(sInput, out int num);
+
+                    if (num > DelList.Count)
+                    {
+                        Console.WriteLine("Index out of bounds, please restart.");
+                        return;
+                    }
+
+                    Employee emchosen = eList.ElementAt(num);
+                    eindex = eList.IndexOf(emchosen);
+
+                    if (emchosen == null)
+                        return;
+
+                    Console.WriteLine("Employee found: {0} {1}", emchosen.firstName, emchosen.lastName);
+                    Console.WriteLine("Not inputting any details will not update the record.");
+                    Console.WriteLine("Please enter new first name for employee at index: {0}", eindex);
+
+                    sFirstName = Console.ReadLine();
+
+                    if (String.Equals(sFirstName, ""))
+                        sFirstName = emchosen.firstName;
+                    else
+                        emchosen.firstName = sFirstName;
+
+                    Console.WriteLine("Please enter new last name for employee at index: {0}", eindex);
+
+                    sLastName = Console.ReadLine();
+
+                    if (String.Equals(sLastName, ""))
+                        sLastName = emchosen.lastName;
+                    else
+                        emchosen.lastName = sLastName;
+
+                    Console.WriteLine("\nPlease enter employee email for employee at index: {0}:", eindex);
+
+                    sEmailID = Console.ReadLine();
+
+                    if (String.Equals(sEmailID, ""))
+                        sEmailID = emchosen.emailId;
+                    else
+                        emchosen.emailId = sEmailID;
+
+                    Console.WriteLine("\nPlease enter employee phone number for employee at index: {0}:", eindex);
+
+                    sMobileNumber = Console.ReadLine();
+
+                    if (String.Equals(sMobileNumber, ""))
+                        sMobileNumber = emchosen.contactNumber;
+                    else
+                        emchosen.contactNumber = sMobileNumber;
+
+                    Console.WriteLine("\nPlease enter employee address for employee at index: {0}:", eindex);
+
+                    sAddress = Console.ReadLine();
+
+                    if (String.Equals(sAddress, ""))
+                        sAddress = emchosen.address;
+                    else
+                        emchosen.address = sAddress;
+
+                    table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
+                    table.AddRow(eindex, emchosen.firstName, emchosen.lastName, emchosen.emailId, emchosen.contactNumber, emchosen.address);
+                    table.Write();
+                }
                 else
-                    em.firstName = sFirstName;
+                {
+                    Employee em = eList.Find(em => em.firstName == sName);
 
-                Console.WriteLine("Please enter new last name for employee at index: {0}", index);
+                    if (em == null)
+                        return;
 
-                sLastName = Console.ReadLine();
+                    int index = eList.IndexOf(em);
 
-                if (String.Equals(sLastName, ""))
-                    sLastName = em.lastName;
-                else
-                    em.lastName = sLastName;
+                    Console.WriteLine("Employee found: {0} {1}", em.firstName, em.lastName);
+                    Console.WriteLine("Not inputting any details will not update the record.");
+                    Console.WriteLine("Please enter new first name for employee at index: {0}", index);
 
-                Console.WriteLine("\nPlease enter employee email for employee at index: {0}:", index);
+                    sFirstName = Console.ReadLine();
 
-                sEmailID = Console.ReadLine();
+                    if (String.Equals(sFirstName, ""))
+                        sFirstName = em.firstName;
+                    else
+                        em.firstName = sFirstName;
 
-                if (String.Equals(sEmailID, ""))
-                    sEmailID = em.emailId;
-                else
-                    em.emailId = sEmailID;
+                    Console.WriteLine("Please enter new last name for employee at index: {0}", index);
 
-                Console.WriteLine("\nPlease enter employee phone number for employee at index: {0}:", index);
+                    sLastName = Console.ReadLine();
 
-                sMobileNumber = Console.ReadLine();
+                    if (String.Equals(sLastName, ""))
+                        sLastName = em.lastName;
+                    else
+                        em.lastName = sLastName;
 
-                if (String.Equals(sMobileNumber, ""))
-                    sMobileNumber = em.contactNumber;
-                else
-                    em.contactNumber = sMobileNumber;
+                    Console.WriteLine("\nPlease enter employee email for employee at index: {0}:", index);
 
-                Console.WriteLine("\nPlease enter employee address for employee at index: {0}:", index);
+                    sEmailID = Console.ReadLine();
 
-                sAddress = Console.ReadLine();
+                    if (String.Equals(sEmailID, ""))
+                        sEmailID = em.emailId;
+                    else
+                        em.emailId = sEmailID;
 
-                if (String.Equals(sAddress, ""))
-                    sAddress = em.address;
-                else
-                    em.address = sAddress;
+                    Console.WriteLine("\nPlease enter employee phone number for employee at index: {0}:", index);
 
-                var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
-                table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
-                table.Write();
+                    sMobileNumber = Console.ReadLine();
+
+                    if (String.Equals(sMobileNumber, ""))
+                        sMobileNumber = em.contactNumber;
+                    else
+                        em.contactNumber = sMobileNumber;
+
+                    Console.WriteLine("\nPlease enter employee address for employee at index: {0}:", index);
+
+                    sAddress = Console.ReadLine();
+
+                    if (String.Equals(sAddress, ""))
+                        sAddress = em.address;
+                    else
+                        em.address = sAddress;
+
+                    table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
+                    table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
+                    table.Write();
+                }
 
                 // Serialize
                 using (StreamWriter file = File.CreateText("employee.json"))
@@ -275,16 +363,54 @@ namespace ConsoleApp
             // Delete employee from list & file by desired name
             public static void DeleteEmployeeName(string sName, List<Employee> eList)
             {
-                Employee em = eList.Find(em => em.firstName == sName);
+                List<Employee> DelList = eList.FindAll(em => em.firstName == sName); // Make new list to deconstruct, then delete from original list.
 
-                if (em == null)
-                    return;
+                if (DelList.Count > 1)
+                {
+                    int eindex; 
+                    Console.WriteLine("Multiple employees with the same first name detected, please select below.");
+                    var table = new ConsoleTable("Index", "First Name", "Last Name");
 
-                int index = eList.IndexOf(em);
+                    foreach (Employee em in DelList)
+                    {
+                        eindex = DelList.IndexOf(em); // variable leaking to global, whoops
+                        table.AddRow(eindex, em.firstName, em.lastName);
+                    }
 
-                Console.WriteLine("Employee {0} {1} found at ID: {2}, deleting...", em.firstName, em.lastName, index);
+                    table.Write();
 
-                eList.RemoveAt(index);
+                    string sInput = Console.ReadLine();
+                    bool isString = int.TryParse(sInput, out int num);
+
+                    if (num > DelList.Count)
+                    {
+                        Console.WriteLine("Index out of bounds, please restart.");
+                        return;
+                    }
+
+                    Employee emchosen = eList.ElementAt(num);
+                    eindex = eList.IndexOf(emchosen);
+
+                    if (emchosen == null)
+                        return;
+
+                    Console.WriteLine("Employee {0} {1} found at ID: {2}, deleting...", emchosen.firstName, emchosen.lastName, eindex);
+
+                    eList.RemoveAt(eindex);
+                }
+                else
+                {
+                    Employee em = eList.Find(em => em.firstName == sName);
+
+                    int index = eList.IndexOf(em);
+
+                    if (em == null)
+                        return;
+
+                    Console.WriteLine("Employee {0} {1} found at ID: {2}, deleting...", em.firstName, em.lastName, index);
+
+                    eList.RemoveAt(index);
+                }
 
                 // Serialize
                 using (StreamWriter file = File.CreateText("employee.json"))
@@ -303,6 +429,12 @@ namespace ConsoleApp
                 if (em == null)
                     return;
 
+                if (iId > eList.Count)
+                {
+                    Console.WriteLine("Index out of bounds, please restart.");
+                    return;
+                }
+
                 int index = eList.IndexOf(em);
 
                 var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address"); // External library ConsoleTable to show data easier.
@@ -314,16 +446,49 @@ namespace ConsoleApp
             // Search employee information from list & file by desired string
             public static void SearchEmployeeName(string sName, List<Employee> eList)
             {
-                Employee em = eList.Find(em => em.firstName == sName);
+                eList = eList.FindAll(em => em.firstName == sName);
 
-                if (em == null)
-                    return;
+                if(eList.Count > 1)
+                {
+                    int index;
+                    Console.WriteLine("Multiple employees with the same first name detected, please select below.");
+                    var table = new ConsoleTable("Index", "First Name", "Last Name");
+                    foreach (Employee em in eList)
+                    {
+                        index = eList.IndexOf(em);
+                        table.AddRow(index, em.firstName, em.lastName);
+                    }
 
-                int index = eList.IndexOf(em);
+                    table.Write();
 
-                var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
-                table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
-                table.Write();
+                    string sInput = Console.ReadLine();
+                    bool isString = int.TryParse(sInput, out int num);
+
+                    if (num > eList.Count)
+                    {
+                        Console.WriteLine("Index out of bounds, please restart.");
+                        return;
+                    }
+
+                    Employee emchosen = eList.ElementAt(num);
+
+                    if (emchosen == null)
+                        return;
+
+                    index = eList.IndexOf(emchosen);
+                    table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
+                    table.AddRow(index, emchosen.firstName, emchosen.lastName, emchosen.emailId, emchosen.contactNumber, emchosen.address);
+                    table.Write();
+                }
+                else
+                {
+                    Employee em = eList.Find(em => em.firstName == sName);
+
+                    int index = eList.IndexOf(em);
+                    var table = new ConsoleTable("Index", "First Name", "Last Name", "Email", "Contact Number", "Address");
+                    table.AddRow(index, em.firstName, em.lastName, em.emailId, em.contactNumber, em.address);
+                    table.Write();
+                }
             }
         }
 
@@ -336,11 +501,24 @@ namespace ConsoleApp
             List<Employee> EList = new List<Employee>(); // Keeping this at a global scope didn't carry my data, dunno why.
 
             // Serialize
-            // We read file every time the program runs, never again as it is synced with the object list
-            using (StreamReader file = new StreamReader("employee.json"))
+            bool exists = File.Exists("employee.json");
+
+            if(!exists) // File doesn't exist, create.
             {
-                Employee.serial = file.ReadToEnd();
-                EList = JsonConvert.DeserializeObject<List<Employee>>(Employee.serial);
+                using (StreamWriter file = File.CreateText("employee.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, EList);
+                }
+            }
+            else
+            {
+                // We read file every time the program runs, never again as it is synced with the object list
+                using (StreamReader file = new StreamReader("employee.json"))
+                {
+                    Employee.serial = file.ReadToEnd();
+                    EList = JsonConvert.DeserializeObject<List<Employee>>(Employee.serial);
+                }
             }
 
             // We do everything here, call all our functions and everything
