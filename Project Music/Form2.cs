@@ -96,6 +96,9 @@ namespace ProjectMusic
                 this.BackColor = SystemColors.Window;
                 this.ForeColor = SystemColors.WindowText;
 
+                textBox10.ForeColor = Color.Black;
+                textBox10.BackColor = Color.White;
+
                 bHighConstrastMode = false;
             }
         }
