@@ -1,0 +1,21 @@
+{
+  "solution": {
+    "path": "Spotify_Native.sln",
+    "projects": [
+		"Spotify_Native.Shared\\Spotify_Native.Shared.shproj",
+
+		"Spotify_Native.Droid\\Spotify_Native.Droid.csproj",
+
+		"Spotify_Native.iOS\\Spotify_Native.iOS.csproj",
+
+
+		"Spotify_Native.Wasm\\Spotify_Native.Wasm.csproj",
+
+		"Spotify_Native.macOS\\Spotify_Native.macOS.csproj",
+
+		"Spotify_Native.Skia.Gtk\\Spotify_Native.Skia.Gtk.csproj",
+
+		"Spotify_Native.Skia.Linux.FrameBuffer\\Spotify_Native.Skia.Linux.FrameBuffer.csproj",
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+C:\Users\wyatt\Documents\GitHub\Course-Work\Spotify-API-Uno-Project\Spotify-Native\Spotify-Native.Skia.WPF\obj\Debug\netstandard2.0\Spotify-Native.Skia.WPF.csproj.AssemblyReference.cache
+C:\Users\wyatt\Documents\GitHub\Course-Work\Spotify-API-Uno-Project\Spotify-Native\Spotify-Native.Skia.WPF\obj\Debug\netstandard2.0\Spotify-Native.Skia.WPF.d-bfalse.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wyatt\Documents\GitHub\Course-Work\Spotify-API-Uno-Project\Spotify-Native\Spotify-Native.Skia.WPF\obj\Debug\netstandard2.0\Spotify-Native.Skia.WPF.AssemblyInfoInputs.cache
+C:\Users\wyatt\Documents\GitHub\Course-Work\Spotify-API-Uno-Project\Spotify-Native\Spotify-Native.Skia.WPF\obj\Debug\netstandard2.0\Spotify-Native.Skia.WPF.AssemblyInfo.cs
+C:\Users\wyatt\Documents\GitHub\Course-Work\Spotify-API-Uno-Project\Spotify-Native\Spotify-Native.Skia.WPF\obj\Debug\netstandard2.0\Spotify-Native.Skia.WPF.csproj.CoreCompileInputs.cache
